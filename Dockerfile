@@ -15,7 +15,7 @@ COPY gwlicense.ini /usr/local/share/gowin/IDE/bin/gwlicense.ini
 
 # Install litex
 RUN apt-get update \
-    && apt-get install -y python3-full git gcc-riscv64-linux-gnu meson \
+    && apt-get install -y python3-full git bash-completion gcc-riscv64-linux-gnu meson vim \
     && mkdir -p /usr/local/share/litex/litex \
     && python3 -m venv /usr/local/share/litex/venv \
     && . /usr/local/share/litex/venv/bin/activate \
@@ -23,8 +23,9 @@ RUN apt-get update \
     && chmod +x /usr/local/share/litex/litex/litex_setup.py \
     && cd /usr/local/share/litex/litex \
     && ./litex_setup.py --init --install --config=standard
+    
 
 # Ensure all new sessions activate the venv
 COPY .bashrc /root/.bashrc
-WORKDIR /usr/local/share/litex//litex/litex-boards/litex_boards/targets
+WORKDIR /data/work
 CMD bash
